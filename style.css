@@ -1,13 +1,12 @@
-/* ЦВЕТОВАЯ ГАММА СО СКРИНШОТА (Dark Theme) */
 :root {
-    --bg-main: #121212;         /* Почти черный фон контента */
-    --bg-sidebar: #1a1a1a;      /* Чуть светлее фон меню */
-    --text-main: #e0e0e0;       /* Светло-серый текст */
-    --text-muted: #aaaaaa;      /* Тусклый текст для названий файлов */
-    --accent: #7c3aed;          /* Яркий фиолетовый */
-    --accent-dim: #2d1b4d;      /* Темно-фиолетовый для фона активного пункта */
-    --border: #2a2a2a;          /* Тонкие границы */
-    --card-bg: #1e1e1e;         /* Фон блока "Быстрые ссылки" */
+    --bg-main: #121212;
+    --bg-sidebar: #1a1a1a;
+    --text-main: #e0e0e0;
+    --text-muted: #aaaaaa;
+    --accent: #7c3aed;
+    --accent-dim: #2d1b4d;
+    --border: #2a2a2a;
+    --card-bg: #1e1e1e;
 }
 
 * { box-sizing: border-box; }
@@ -23,7 +22,6 @@ body {
 
 .container { display: flex; }
 
-/* БОКОВОЕ МЕНЮ (АДАПТИВНОЕ) */
 .sidebar {
     width: 280px;
     background-color: var(--bg-sidebar);
@@ -48,7 +46,6 @@ body {
 
 .sidebar ul { list-style: none; padding: 0; margin: 0; }
 
-/* Названия файлов (приводим к красивому виду через JS) */
 .sidebar li a {
     display: block;
     padding: 10px 25px;
@@ -64,14 +61,12 @@ body {
     color: #fff;
 }
 
-/* Активный пункт (как на скриншоте) */
 .sidebar li a.active {
     color: var(--accent);
     background-color: var(--accent-dim);
     border-left-color: var(--accent);
 }
 
-/* Названия разделов (-- РАЗРАБОТКА --) */
 .section-title {
     padding: 25px 25px 8px;
     font-size: 11px;
@@ -81,7 +76,6 @@ body {
     letter-spacing: 1px;
 }
 
-/* Кнопка мобильного меню */
 .menu-toggle {
     display: none;
     position: fixed;
@@ -97,9 +91,8 @@ body {
     font-size: 18px;
 }
 
-/* ОСНОВНОЙ КОНТЕНТ (АДАПТИВНЫЙ) */
 .content {
-    margin-left: 280px; /* Отступ под сайдбар */
+    margin-left: 280px;
     width: calc(100% - 280px);
     padding: 60px 80px;
     display: flex;
@@ -108,18 +101,16 @@ body {
 
 article {
     width: 100%;
-    max-width: 800px; /* Чтобы текст не растягивался во всю ширину */
+    max-width: 800px;
 }
 
 h1 { font-size: 36px; font-weight: 600; margin-top: 0; color: #fff; border-bottom: 1px solid var(--border); padding-bottom: 15px;}
 h3 { color: #fff; margin-top: 30px; }
 
-/* Стили для блока "Быстрые ссылки" (как на скриншоте) */
 .content ul { padding-left: 20px; }
 .content li { margin-bottom: 10px; }
 .content strong { color: #fff; }
 
-/* Фиолетовая плашка ( card ) */
 .card, article > ul {
     background-color: var(--card-bg);
     border-left: 4px solid var(--accent);
@@ -128,31 +119,28 @@ h3 { color: #fff; margin-top: 30px; }
     margin: 30px 0;
 }
 
-/* --- МЕДИА-ЗАПРОСЫ (АДАПТИВНОСТЬ) --- */
 
-/* Для планшетов */
 @media (max-width: 1024px) {
     .content { padding: 40px; }
 }
 
-/* Для мобильных телефонов */
 @media (max-width: 768px) {
-    .menu-toggle { display: block; } /* Показываем кнопку */
+    .menu-toggle { display: block; }
 
     .sidebar {
-        transform: translateX(-100%); /* Скрываем сайдбар */
+        transform: translateX(-100%);
         width: 260px;
     }
 
     .sidebar.active {
-        transform: translateX(0); /* Показываем при клике */
+        transform: translateX(0);
         box-shadow: 10px 0 30px rgba(0,0,0,0.5);
     }
 
     .content {
         margin-left: 0;
         width: 100%;
-        padding: 80px 20px 40px; /* Место сверху под кнопку */
+        padding: 80px 20px 40px;
     }
 
     h1 { font-size: 28px; }

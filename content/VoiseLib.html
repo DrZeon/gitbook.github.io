@@ -6,11 +6,16 @@
 
 <div class="card">
     <h3>📂 Объект FileTag (file@)</h3>
+    <p1>@name FileTag</p1><br>
+    <p2>@prefix file</p2><br>
+    <p3>@base ElementTag</p3><br>
+    <p4>Идентификатор: 'file@<path>'</p4><br>
+    <p5>@description</p5><br>
     <p>Используется для работы с файловой системой сервера. Позволяет проверять наличие файлов и подготавливать их к декодированию.</p>
     <ul>
-        <li><code><file[путь].exists></code> — возвращает boolean (существует ли файл).</li>
-        <li><code><file[путь].name></code> — возвращает имя файла.</li>
-        <li><code><file[путь].decode[volume]></code> — основная функция. Декодирует MP3 в PCM данные и возвращает объект <strong>AudioTag</strong>.</li>
+        <li><code>&lt;file[путь].exists&gt;</code> — возвращает boolean (существует ли файл).</li>
+        <li><code>&lt;file[путь].name&gt;</code> — возвращает имя файла.</li>
+        <li><code>&lt;file[путь].decode[volume]&gt;</code> — основная функция. Декодирует MP3 в PCM данные и возвращает объект <strong>AudioTag</strong>.</li>
     </ul>
 </div>
 
@@ -21,7 +26,7 @@
     <p3>@base ElementTag</p3><br>
     <p4>Идентификатор: 'audio@<id>' (в данном случае мы используем его для хранения PCM данных в памяти)</p4><br>
     <p5>@description</p5><br>
-    <p6>Объект, содержащий расшифрованные аудио-данные (PCM 48kHz).</p6><br>
+    <p>Представляет собой аудио-данные, хранящиеся в оперативной памяти в формате PCM (48kHz, Mono).</p>
     <ul>
         <li><code><audio.sample_count></code> — возвращает общее количество сэмплов в аудио.</li>
         <li><code><audio.reverse></code> — инвертирует массив данных (проигрывание задом наперед).</li>

@@ -30,7 +30,7 @@
     <ul>
         <li>&lt;audio.sample_count&gt; - возвращает общее количество сэмплов в аудио.</li>
         <li>&lt;audio.reverse&gt; - инвертирует массив данных (проигрывание задом наперед).</li>
-        <li>&lt;audio.echo[delay].decay[percent]&gt; - накладывает эффект эха.</li>
+        <li>&lt;audio.echo[delay]&gt; - накладывает эффект эха.</li>
         <li>&lt;audio.mix[audio@...].noise[percent]&gt; - смешивает два аудио-потока.</li>
     </ul>
 </div>
@@ -50,9 +50,13 @@
     </pre>
     <h3>Пример использования в Denizen:</h3>
     <div style="background: #2a2a2a; padding: 15px; border-radius: 4px; font-family: monospace; font-size: 13px;">
-        - define sound_file &lt;file[plugins/MyFiles/alert.mp3]&gt;<br>
-        - if <[sound_file].exists>:<br>
-        &nbsp;&nbsp;- define final_audio <[sound_file].decode[100].echo[200]><br>
-        &nbsp;&nbsp;- narrate "Аудио готово к отправке, размер: <[final_audio].sample_count>"
+        - define file &lt;file[plugins/files/test.mp3].exists&gt; - любой путь к звуковому файлу +проверка на существование<br>
+        - define directory &lt;file[plugins/files].exists&gt; - любой путь к дериктории +проверка на существование<br>
+        - narrate &lt;file[plugins/files/test.mp3].name&gt; - вывод названия звукового файла<br>
+        - narrate &lt;file[plugins/files].name&gt; - вывод названия дериктории<br>
+        - define final_audio &lt;[file].decode[100]&gt; - декодирование файла с настройкой громкости на 100%<br>
+        - define final_audio &lt;[file].decode[100].echo[100]&gt; - декодирование файла c эхом на 100мс
+        - define final_audio &lt;[file].decode[100].reverse&gt; - декодирование файла с реверсом звуковой дорожки
+        - narrate &lt;[final_audio].sample_count&gt; - вывод количества семплов
     </div>
 </div>

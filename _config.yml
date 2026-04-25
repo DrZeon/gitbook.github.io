@@ -1,3 +1,12 @@
 remote_theme: sighingnow/jekyll-gitbook
-title: Моя Документация
-description: Описание
+title: "Project Documentation"
+description: "Техническая документация и руководства"
+
+# Настройки для плагинов
+plugins:
+  - jekyll-remote-theme
+  - jekyll-font-awesome-sass
+
+# Позволяет использовать SUMMARY.md для навигации
+jekyll-gitbook:
+  use_map: true

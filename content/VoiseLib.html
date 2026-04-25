@@ -41,20 +41,18 @@
     <ul>
         <li>&lt;player.has_voice&gt; - возвращает boolean значение, если у игрока установлен мод.</li>
     </ul>
-</div>
-
-<h2>Технические методы</h2>
-<p>Внутренняя логика обработки звука построена на следующих принципах:</p>
-<pre>
-- Частота дискретизации: 48000 Hz
-- Формат: short[] (PCM 16-bit)
-- Обработка: Mono (автоматическая конвертация при декодировании)
-</pre>
-
-<h3>Пример использования в Denizen:</h3>
-<div style="background: #2a2a2a; padding: 15px; border-radius: 4px; font-family: monospace; font-size: 13px;">
-    - define sound_file &lt;file[plugins/MyFiles/alert.mp3]&gt;<br>
-    - if <[sound_file].exists>:<br>
-    &nbsp;&nbsp;- define final_audio <[sound_file].decode[100].echo[200]><br>
-    &nbsp;&nbsp;- narrate "Аудио готово к отправке, размер: <[final_audio].sample_count>"
+    <h2>Технические методы</h2>
+    <p>Внутренняя логика обработки звука построена на следующих принципах:</p>
+    <pre>
+    - Частота дискретизации: 48000 Hz
+    - Формат: short[] (PCM 16-bit)
+    - Обработка: Mono (автоматическая конвертация при декодировании)
+    </pre>
+    <h3>Пример использования в Denizen:</h3>
+    <div style="background: #2a2a2a; padding: 15px; border-radius: 4px; font-family: monospace; font-size: 13px;">
+        - define sound_file &lt;file[plugins/MyFiles/alert.mp3]&gt;<br>
+        - if <[sound_file].exists>:<br>
+        &nbsp;&nbsp;- define final_audio <[sound_file].decode[100].echo[200]><br>
+        &nbsp;&nbsp;- narrate "Аудио готово к отправке, размер: <[final_audio].sample_count>"
+    </div>
 </div>

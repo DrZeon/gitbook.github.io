@@ -1,6 +1,7 @@
 remote_theme: sighingnow/jekyll-gitbook
 title: "Project Documentation"
 description: "Техническая документация и руководства"
+include: ["README.md", "SUMMARY.md"]
 
 # Настройки для плагинов
 plugins:

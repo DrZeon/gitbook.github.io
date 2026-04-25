@@ -15,8 +15,13 @@
 </div>
 
 <div class="card">
-    <h3>🔊 Объект AudioTag (audio@)</h3>
-    <p>Представляет собой аудио-данные, хранящиеся в оперативной памяти в формате PCM (48kHz, Mono).</p>
+    <h3>Объект AudioTag</h3>
+    <p><div>@name AudioTag
+    @prefix audio
+    @base ElementTag
+    Идентификатор: 'audio@<id>' (в данном случае мы используем его для хранения PCM данных в памяти)
+    @description
+    Объект, содержащий расшифрованные аудио-данные (PCM 48kHz).</div></p>
     <ul>
         <li><code><audio.sample_count></code> — возвращает общее количество сэмплов в аудио.</li>
         <li><code><audio.reverse></code> — инвертирует массив данных (проигрывание задом наперед).</li>

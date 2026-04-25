@@ -2,38 +2,103 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Документация | DrZeon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docs | DrZeon</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="dark-theme">
     <div class="container">
+        <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
+
         <nav class="sidebar">
             <div class="sidebar-header">
                 <h3>Docs</h3>
             </div>
-            <ul>
-                <li><a href="index.html" class="active">Введение</a></li>
-                <li><a href="setup.html">Установка</a></li>
-                <li class="section-title">Разработка</li>
-                <li><a href="api.html">API & Скрипты</a></li>
-                <li><a href="shaders.html">Шейдеры</a></li>
-            </ul>
+            <ul id="sidebar-menu"></ul>
         </nav>
 
         <main class="content">
-            <article>
-                <h1>Добро пожаловать</h1>
-                <p>Это твоя база знаний, оформленная в стиле GitBook. Здесь нет ничего лишнего — только чистый код и быстрая работа.</p>
-                
-                <div class="card">
-                    <h3>Быстрые ссылки</h3>
-                    <ul>
-                        <li><strong>Minecraft Dev:</strong> Настройка плагинов и Java.</li>
-                        <li><strong>Python Tools:</strong> Инструкции к утилитам.</li>
-                    </ul>
-                </div>
+            <article id="content-area">
+                <h1>Загрузка...</h1>
             </article>
         </main>
     </div>
+
+    <script>
+        // ИНИЦИАЛИЗАЦИЯ СИСТЕМЫ
+        // Просто добавь сюда относительные пути к файлам в папке /content/
+        // Названия в меню сформируются автоматически.
+        const pageList = [
+            '-- РАЗРАБОТКА --', // Это заголовок раздела
+            'content/moi_skripty.html'
+        ];
+
+        // --- Двигатель системы (не трогать без надобности) ---
+        const menuEl = document.getElementById('sidebar-menu');
+        const contentEl = document.getElementById('content-area');
+        const toggleBtn = document.querySelector('.menu-toggle');
+        const sidebarEl = document.querySelector('.sidebar');
+
+        // Мобильное меню
+        toggleBtn.addEventListener('click', () => sidebarEl.classList.toggle('active'));
+
+        // Функция красивого имени из названия файла
+        function formatName(path) {
+            const filename = path.split('/').pop().split('.').shift();
+            // Заменяем нижние подчеркивания на пробелы и делаем первую букву заглавной
+            const spaced = filename.replace(/_/g, ' ');
+            return spaced.charAt(0).toUpperCase() + spaced.slice(1);
+        }
+
+        // Генерация меню
+        pageList.forEach(item => {
+            const li = document.createElement('li');
+            if (item.startsWith('--') && item.endsWith('--')) {
+                li.className = 'section-title';
+                li.textContent = item.replace(/--/g, '').trim();
+            } else {
+                const a = document.createElement('a');
+                a.href = '#' + item; // Используем хэш для навигации без перезагрузки
+                a.textContent = formatName(item);
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    loadPage(item);
+                    sidebarEl.classList.remove('active'); // Закрыть меню на мобильном
+                });
+                li.appendChild(a);
+            }
+            menuEl.appendChild(li);
+        });
+
+        // Загрузка контента (AJAX)
+        async function loadPage(path) {
+            // Подсветка активного пункта
+            document.querySelectorAll('#sidebar-menu a').forEach(a => a.classList.remove('active'));
+            const activeLink = document.querySelector(`#sidebar-menu a[href="#${path}"]`);
+            if (activeLink) activeLink.classList.add('active');
+
+            // Загрузка
+            try {
+                contentEl.innerHTML = '<h1>Загрузка...</h1>';
+                const response = await fetch(path);
+                if (!response.ok) throw new Error('Страница не найдена');
+                const html = await response.text();
+                contentEl.innerHTML = html;
+                window.location.hash = path; // Обновляем URL
+            } catch (error) {
+                contentEl.innerHTML = `<h1>Ошибка 404</h1><p>Не удалось загрузить: ${path}</p>`;
+            }
+        }
+
+        // Обработка прямой ссылки или перезагрузки
+        const currentHash = window.location.hash.substring(1);
+        if (currentHash && pageList.includes(currentHash)) {
+            loadPage(currentHash);
+        } else {
+            // Загружаем первую страницу из списка по умолчанию
+            const firstPage = pageList.find(p => !p.startsWith('--'));
+            if (firstPage) loadPage(firstPage);
+        }
+    </script>
 </body>
 </html>

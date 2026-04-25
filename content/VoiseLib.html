@@ -1,0 +1,60 @@
+<h1>VoiceLib</h1>
+<p>
+    <strong>VoiceLib</strong> — это системный аддон для интеграции <em>Simple Voice Chat</em> с движком <em>Denizen</em>. 
+    Библиотека расширяет возможности скриптов, добавляя поддержку нативной обработки звука и проверки состояния голосового чата.
+</p>
+
+<div class="card">
+    <h3><strong>Объект FileTag</strong></h3>
+    <p1>@name FileTag</p1><br>
+    <p2>@prefix file</p2><br>
+    <p3>@base ElementTag</p3><br>
+    <p4>Идентификатор: 'file@<path>'</p4><br>
+    <p5>@description</p5><br>
+    <p>Используется для работы с файловой системой сервера. Позволяет проверять наличие файлов и подготавливать их к декодированию.</p>
+    <ul>
+        <li>&lt;file[путь].exists&gt; - возвращает boolean (существует ли файл).</li>
+        <li>&lt;file[путь].name&gt; - возвращает имя файла.</li>
+        <li>&lt;file[путь].decode[volume]&gt; - основная функция. Декодирует MP3 в PCM данные и возвращает объект <strong>AudioTag</strong>.</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h3><strong>Объект AudioTag</strong></h3>
+    <p1>@name AudioTag</p1><br>
+    <p2>@prefix audio</p2><br>
+    <p3>@base ElementTag</p3><br>
+    <p4>Идентификатор: 'audio@<id>' (в данном случае мы используем его для хранения PCM данных в памяти)</p4><br>
+    <p5>@description</p5><br>
+    <p>Представляет собой аудио-данные, хранящиеся в оперативной памяти в формате PCM (48kHz, Mono).</p>
+    <ul>
+        <li>&lt;audio.sample_count&gt; - возвращает общее количество сэмплов в аудио.</li>
+        <li>&lt;audio.reverse&gt; - инвертирует массив данных (проигрывание задом наперед).</li>
+        <li>&lt;audio.echo[delay].decay[percent]&gt; - накладывает эффект эха.</li>
+        <li>&lt;audio.mix[audio@...].noise[percent]&gt; - смешивает два аудио-потока.</li>
+    </ul>
+</div>
+
+<div class="card">
+    <h2>Теги</h2>
+    <p>Плагин расширяет стандартный &lt;PlayerTag&gt;, добавляя проверку связи:</p>
+    <ul>
+        <li>&lt;player.has_voice&gt; - возвращает boolean значение, если у игрока установлен мод.</li>
+    </ul>
+</div>
+
+<h2>Технические методы</h2>
+<p>Внутренняя логика обработки звука построена на следующих принципах:</p>
+<pre>
+- Частота дискретизации: 48000 Hz
+- Формат: short[] (PCM 16-bit)
+- Обработка: Mono (автоматическая конвертация при декодировании)
+</pre>
+
+<h3>Пример использования в Denizen:</h3>
+<div style="background: #2a2a2a; padding: 15px; border-radius: 4px; font-family: monospace; font-size: 13px;">
+    - define sound_file &lt;file[plugins/MyFiles/alert.mp3]&gt;<br>
+    - if <[sound_file].exists>:<br>
+    &nbsp;&nbsp;- define final_audio <[sound_file].decode[100].echo[200]><br>
+    &nbsp;&nbsp;- narrate "Аудио готово к отправке, размер: <[final_audio].sample_count>"
+</div>
